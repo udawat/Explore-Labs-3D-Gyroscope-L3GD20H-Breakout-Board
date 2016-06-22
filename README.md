@@ -1,6 +1,10 @@
 # Explore Labs 3D Gyroscope L3GD20H Breakout Board
 ## Overview
-This breakout board is based on ST L3GD20H three-axis gyroscope, which measures the angular rates of rotation about the roll (X), pitch (Y), and yaw (Z) axes. Angular velocity measurements with a configurable range of ±245°/s, ±500°/s, or ±2000°/s can be read through a digital I2C or SPI interface.
+
+<img src="http://www.explorelabs.com/media/catalog/product//l/3/l3gd20h-03.jpg" width="400" alt="Explore Labs 3D Gyroscope L3GD20H Breakout Board - Top" />
+<img src="http://www.explorelabs.com/media/catalog/product//l/3/l3gd20h-02.jpg" width="400" alt="Explore Labs 3D Gyroscope L3GD20H Breakout Board - Bottom" />
+
+[Explore Labs 3D Gyroscope L3GD20H Breakout Board](http://www.explorelabs.com/explore-labs-3d-gyroscope-l3gd20h-breakout-board-5v-ready-with-voltage-regulator "Explore Labs 3D Gyroscope L3GD20H Breakout Board") is based on ST L3GD20H three-axis gyroscope, which measures the angular rates of rotation about the roll (X), pitch (Y), and yaw (Z) axes. Angular velocity measurements with a configurable range of ±245°/s, ±500°/s, or ±2000°/s can be read through a digital I2C or SPI interface.
 
 The carrier board includes a low-dropout linear voltage regulator that provides the 3.3 V required by the L3GD20H, which allows the sensor to be powered from 2.5 V to 5.5 V. The regulator output is available on the 3Vo pin which can supply approx. 150 mA to external devices.
 
@@ -91,10 +95,10 @@ The carrier board supports both I2C as well as SPI method of communication with 
 ## Connecting Explore Labs 3D Gyroscope L3GD20H Breakout Board using I2C (Inter Integrated Circuit) Interface
 |L3GD20H|Arduino Uno|Arduino Mega|Arduino Leonardo|Arduino Due|Genuino Zero|Genuino 101|Arduino MKR1000|Raspberry Pi|BeagleBone Black|
 |---|---|---|---|---|---|---|---|---|---|
-|VIN|5V|5V|5V|3.3V|3.3V|VCC (3.3V)|3.3V|3.3V|3.3V|
-|GND|GND|GND|GND|GND|GND|GND|GND|GND|GND|
-|SDI/SDA|A4 or SDA|Pin 20 (SDA)|Pin 2 (SDA)|Pin 20 (SDA)|SDA|SDA|Pin 12 (SDA)|Pin 3 (SDA1) or GPIO2|Pin 20 (I2C2_SDA)|
-|SCK/SCL|A5 or SCL|Pin 21 (SCL)|Pin 3 (SCL)|Pin 21 (SCL)|SCL|SCL|Pin 11 (SCL)|Pin 5 (SCL1) or GPIO3|Pin 19 (I2C2_SCL)|
+|**VIN**|5V|5V|5V|3.3V|3.3V|VCC (3.3V)|3.3V|3.3V|3.3V|
+|**GND**|GND|GND|GND|GND|GND|GND|GND|GND|GND|
+|**SDI/SDA**|A4 or SDA|Pin 20 (SDA)|Pin 2 (SDA)|Pin 20 (SDA)|SDA|SDA|Pin 12 (SDA)|Pin 3 (SDA1) or GPIO2|Pin 20 (I2C2_SDA)|
+|**SCK/SCL**|A5 or SCL|Pin 21 (SCL)|Pin 3 (SCL)|Pin 21 (SCL)|SCL|SCL|Pin 11 (SCL)|Pin 5 (SCL1) or GPIO3|Pin 19 (I2C2_SCL)|
 
 ## SPI Communication:
 To use the L3GD20H in SPI mode, CS pin must be driven low (connected to GND). A minimum of four logic connections are used viz., SDI, SCK, SDO and CS. These should be connected to an SPI bus operating at the same logic level as VIN. The SPI interface operates in 4-wire mode by default, with SDI and SDO on separate pins. In the default 4-wire mode, the sensor transmits data to the SPI master on a dedicated data out (SDO) line. If the SPI interface is configured to use 3-wire mode instead, the SDI line doubles as SDO and is driven by the L3GD20H when it transmits data to the master. A detailed explanation of the SPI interface on the L3GD20H can be found in its datasheet.
@@ -126,14 +130,14 @@ To use the L3GD20H in SPI mode, CS pin must be driven low (connected to GND). A 
 ## Connecting Explore Labs 3D Gyroscope L3GD20H Breakout Board using Serial Peripheral Interface (SPI)
 |L3GD20H|Arduino Uno|Arduino Mega|Arduino Leonardo|Arduino Due|Genuino Zero|Genuino 101|Arduino MKR1000|Raspberry Pi|BeagleBone Black|
 |---|---|---|---|---|---|---|---|---|---|
-|VIN|5V|5V|5V|3.3V|3.3V|VCC (3.3V)|3.3V|3.3V|3.3V|
-|GND|GND|GND|GND|GND|GND|GND|GND|GND|GND|
-|SDI/SDA|Pin 11 or MOSI|Pin 51|Pin 4 (ICSP)|Pin 4 (ICSP)|Pin 4 (ICSP)|Pin 11 (MOSI)|Pin 8 (MOSI)|Pin 19 (`MOSI`) or GPIO10|Pin 21 (`SPI0_D0`)|
-|SCK/SCL|Pin 13 or SCK|Pin 52|Pin 3 (ICSP)|Pin 3 (ICSP)|Pin 3 (ICSP)|Pin 13|Pin 9|Pin 23 (`SCLK`) or GPIO11|Pin 22 (`SPI0_SCLK`)|
-|SDO/ADR|Pin 12 or MISO|Pin 50|Pin 1 (ICSP)|Pin 1 (ICSP)|Pin 1 (ICSP)|Pin 12 (MISO)|Pin 10 (MISO)|Pin 21 (`MISO`) or GPIO9|Pin 18 (`SPI0_D1`)|
-|CS|Pin 10 or SS|Pin 53|Any IO|Any IO|Any IO|Pin 10|Any IO|Pin 24 (`CE0_N`) or GPIO8|Pin 17 (`SPI0_CS0`)|
+|**VIN**|5V|5V|5V|3.3V|3.3V|VCC (3.3V)|3.3V|3.3V|3.3V|
+|**GND**|GND|GND|GND|GND|GND|GND|GND|GND|GND|
+|**SDI/SDA**|Pin 11 or MOSI|Pin 51|Pin 4 (ICSP)|Pin 4 (ICSP)|Pin 4 (ICSP)|Pin 11 (MOSI)|Pin 8 (MOSI)|Pin 19 (`MOSI`) or GPIO10|Pin 21 (`SPI0_D0`)|
+|**SCK/SCL**|Pin 13 or SCK|Pin 52|Pin 3 (ICSP)|Pin 3 (ICSP)|Pin 3 (ICSP)|Pin 13|Pin 9|Pin 23 (`SCLK`) or GPIO11|Pin 22 (`SPI0_SCLK`)|
+|**SDO/ADR**|Pin 12 or MISO|Pin 50|Pin 1 (ICSP)|Pin 1 (ICSP)|Pin 1 (ICSP)|Pin 12 (MISO)|Pin 10 (MISO)|Pin 21 (`MISO`) or GPIO9|Pin 18 (`SPI0_D1`)|
+|**CS**|Pin 10 or SS|Pin 53|Any IO|Any IO|Any IO|Pin 10|Any IO|Pin 24 (`CE0_N`) or GPIO8|Pin 17 (`SPI0_CS0`)|
 
-## Working Principle:
+## ST MEMS Advantage:
 It includes a sensing element and an IC interface able to provide the measured angular rate to the external world through digital interface (I2C/SPI). The sensing element is manufactured using a dedicated micromachining process developed by ST to produce inertial sensors and actuators on silicon wafers. The IC interface is manufactured using a CMOS process that allows a high level of integration to design a dedicated circuit which is trimmed to better match the sensing element characteristics.
 
 ## Resources:
@@ -170,8 +174,8 @@ Sample code is provided for interfacing the Explore Labs 3D Gyroscope L3GD20H Br
 #define OUT_Z_L     0x2C
 #define OUT_Z_H     0x2D
 
-int8_t readData      = 0x80;
-int8_t writeData     = 0x00;
+int8_t readData   = 0x80;
+int8_t writeData  = 0x00;
 int16_t gx, gy, gz;
 
 const int CS = 10;
@@ -244,10 +248,10 @@ void writeRegister(int8_t address, int8_t val) {
 #define OUT_Z_L     0x2C
 #define OUT_Z_H     0x2D
 
-int8_t readData      = 0x01;
-int8_t writeData     = 0x00;
-int8_t address       = 0xD6;  //address of L3GD20H with SDO/ADR/SA0 connected to 3Vo.
-//int8_t address     = 0xD4;  //address of L3GD20H with SDO/ADR/SA0 connected to GND.
+int8_t readData   = 0x01;
+int8_t writeData  = 0x00;
+int8_t address    = 0xD6;  //address of L3GD20H with SDO/ADR/SA0 connected to 3Vo.
+//int8_t address  = 0xD4;  //address of L3GD20H with SDO/ADR/SA0 connected to GND.
 
 int16_t gx, gy, gz;
 
