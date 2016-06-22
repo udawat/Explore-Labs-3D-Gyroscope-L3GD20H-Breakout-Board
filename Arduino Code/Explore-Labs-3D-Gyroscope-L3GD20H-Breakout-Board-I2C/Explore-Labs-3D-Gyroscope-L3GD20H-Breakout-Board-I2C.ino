@@ -12,9 +12,9 @@
  
 #include <Wire.h> // Include Arduino I2C library
 
-#define CTRL1       0x20
-#define OUT_X_L     0x28
-#define OUT_X_H     0x29
+#define CTRL1       0x20  // Register addresses from sensor datasheet.
+#define OUT_X_L     0x28  // Only the registers that are used
+#define OUT_X_H     0x29  // in this program are defined here.
 #define OUT_Y_L     0x2A
 #define OUT_Y_H     0x2B
 #define OUT_Z_L     0x2C
@@ -22,34 +22,37 @@
 
 int8_t readData   = 0x01;
 int8_t writeData  = 0x00;
-int8_t address    = 0xD6;  //address of L3GD20H with SDO/ADR/SA0 connected to 3Vo.
+int8_t address    = 0xD6;  //address of L3GD20H with SDO/ADR/SA0 pulled HIGH.
 //int8_t address  = 0xD4;  //address of L3GD20H with SDO/ADR/SA0 connected to GND.
 
-int16_t gx, gy, gz;
+int16_t gx, gy, gz;   //16-bit variables to hold raw data from sensor
 
 void setup() {
   Serial.begin(9600);
   Wire.begin();
-  writeRegister(CTRL1, 0x0F);
+  writeReg(CTRL1, 0x0F); // Initialize the sensor by setting control register
   delay(100);
 }
 
 void loop() {
-  gx = readRegister(OUT_X_H) <<8 | readRegister(OUT_X_L);
-  gy = readRegister(OUT_Y_H) <<8 | readRegister(OUT_Y_L);
-  gz = readRegister(OUT_Z_H) <<8 | readRegister(OUT_Z_L);
-  Serial.print("Angular Velocity (dps):\t");
-  //to convert the raw data to dps, use 8.75 mdps/digit (LSb) for default 250dps
-  Serial.print((gx+0)*0.00875F, DEC); Serial.print("\t"); //replace +zero with x-axis offset value
-  Serial.print((gy+0)*0.00875F, DEC); Serial.print("\t"); //replace +zero with y-axis offset value
-  Serial.print((gz+0)*0.00875F, DEC); Serial.print("\t"); //replace +zero with z-axis offset value
+  gx = (int16_t) readReg(OUT_X_H) <<8 | readReg(OUT_X_L); // typecast as 16-bit
+  gy = (int16_t) readReg(OUT_Y_H) <<8 | readReg(OUT_Y_L);
+  gz = (int16_t) readReg(OUT_Z_H) <<8 | readReg(OUT_Z_L);
+  
+  Serial.print("Angular Velocity in degrees per second (dps):\t");
+  
+  //Sensitivity from Page 9 of datasheet - use 8.75 mdps/digit (LSb) for default 245dps.
+  Serial.print(gx*0.00875F, DEC); Serial.print("\t");
+  Serial.print(gy*0.00875F, DEC); Serial.print("\t");
+  Serial.print(gz*0.00875F, DEC); Serial.print("\t");
   Serial.println();
+  
   delay(100);
 }
 
-int8_t readRegister(int8_t reg) {
+int8_t readReg(int8_t reg) {
   int8_t buffer = 0;
-  Wire.beginTransmission((address | writeData) >>1 ); //slave ID start talking
+  Wire.beginTransmission((address | writeData) >>1);
   Wire.write(reg);
   Wire.endTransmission(0);
   Wire.requestFrom((address | readData) >>1 , 1);
@@ -59,8 +62,8 @@ int8_t readRegister(int8_t reg) {
   return(buffer);  
 }
 
-void writeRegister(int8_t reg, int8_t val) {
-  Wire.beginTransmission((address | writeData) >>1 );
+void writeReg(int8_t reg, int8_t val) {
+  Wire.beginTransmission((address | writeData) >>1);
   Wire.write(reg);
   Wire.write(val);
   Wire.endTransmission();

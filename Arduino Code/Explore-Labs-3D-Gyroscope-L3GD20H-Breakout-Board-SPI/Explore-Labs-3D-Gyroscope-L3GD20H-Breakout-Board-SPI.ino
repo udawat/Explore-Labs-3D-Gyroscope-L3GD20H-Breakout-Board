@@ -14,9 +14,9 @@
 
 #include <SPI.h> // Include Arduino SPI library
 
-#define CTRL1       0x20
-#define OUT_X_L     0x28
-#define OUT_X_H     0x29
+#define CTRL1       0x20  // Register addresses from sensor datasheet.
+#define OUT_X_L     0x28  // Only the registers that are used
+#define OUT_X_H     0x29  // in this program are defined here.
 #define OUT_Y_L     0x2A
 #define OUT_Y_H     0x2B
 #define OUT_Z_L     0x2C
@@ -24,45 +24,45 @@
 
 int8_t readData   = 0x80;
 int8_t writeData  = 0x00;
-int16_t gx, gy, gz;
 
-const int CS = 10;
+int16_t gx, gy, gz;   //16-bit variables to hold raw data from sensor
+
+const int CS = 10;    // Chip Select pin for SPI
 
 void setup() {
   Serial.begin(9600);
   SPI.begin();
   pinMode(CS, OUTPUT);
-  writeRegister(CTRL1, 0x0F);
+  writeReg(CTRL1, 0x0F); // Initialize the sensor by setting control register
   delay(100);
 }
 
 void loop() {
-  gx = readRegister(OUT_X_L) <<8 | readRegister(OUT_X_H);
-  gy = readRegister(OUT_Y_H) <<8 | readRegister(OUT_Y_L);
-  gz = readRegister(OUT_Z_H) <<8 | readRegister(OUT_Z_L);
-  Serial.print("Angular Velocity (dps):\t");
-  Serial.print((gx+0), DEC); Serial.print("\t"); //replace +zero with x-axis offset value
-  Serial.print((gy+0), DEC); Serial.print("\t"); //replace +zero with y-axis offset value
-  Serial.print((gz+0), DEC); Serial.print("\t"); //replace +zero with z-axis offset value
+  gx = (int16_t) readReg(OUT_X_H) <<8 | readReg(OUT_X_L); // typecast as 16-bit
+  gy = (int16_t) readReg(OUT_Y_H) <<8 | readReg(OUT_Y_L);
+  gz = (int16_t) readReg(OUT_Z_H) <<8 | readReg(OUT_Z_L);
+  
+  Serial.print("Angular Velocity in degrees per second (dps):\t");
+  
+  //Sensitivity from Page 9 of datasheet - use 8.75 mdps/digit (LSb) for default 245dps.
+  Serial.print(gx*0.00875F, DEC); Serial.print("\t");
+  Serial.print(gy*0.00875F, DEC); Serial.print("\t");
+  Serial.print(gz*0.00875F, DEC); Serial.print("\t");
   Serial.println();
+  
   delay(100);
 }
 
-int8_t readRegister(int8_t address) {
-  
+int8_t readReg(int8_t address) {
   int8_t buffer = 0;
   digitalWrite(CS, LOW); 
   SPI.transfer(readData | address);
   buffer = SPI.transfer(writeData);
-  Serial.print(address, BIN);
-  Serial.print(" : ");
-  Serial.println(buffer, BIN);
   digitalWrite(CS, HIGH);
   return(buffer);  
 }
 
-void writeRegister(int8_t address, int8_t val) {
-  
+void writeReg(int8_t address, int8_t val) {
   digitalWrite(CS, LOW);
   SPI.transfer(writeData | address);
   SPI.transfer(val);
