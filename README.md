@@ -1,0 +1,2 @@
+# Explore-Labs-3D-Gyroscope-L3GD20H-Breakout-Board
+This breakout board is based on ST L3GD20H three-axis gyroscope, which measures the angular rates of rotation about the roll (X), pitch (Y), and yaw (Z) axes. Angular velocity measurements with a configurable range of &amp;plusmn;245&amp;deg;/s, &amp;plusmn;500&amp;deg;/s, or &amp;plusmn;2000&amp;deg;/s can be read through a digital I2C or SPI interface.
