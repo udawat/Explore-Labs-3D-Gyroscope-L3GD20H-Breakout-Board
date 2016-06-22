@@ -41,7 +41,6 @@ void loop() {
   gy = readRegister(OUT_Y_H) <<8 | readRegister(OUT_Y_L);
   gz = readRegister(OUT_Z_H) <<8 | readRegister(OUT_Z_L);
   Serial.print("Angular Velocity (dps):\t");
-  //to convert the raw data to dps, use 8.75 mdps/digit (LSb) for default 250dps
   Serial.print((gx+0), DEC); Serial.print("\t"); //replace +zero with x-axis offset value
   Serial.print((gy+0), DEC); Serial.print("\t"); //replace +zero with y-axis offset value
   Serial.print((gz+0), DEC); Serial.print("\t"); //replace +zero with z-axis offset value
