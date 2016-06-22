@@ -10,7 +10,7 @@
  * Sensor SCK/SCL - Arduino Uno Analog Input Pin A5 
  */
  
-#include <Wire.h> // Include Arduino I2C library
+#include <Wire.h>         // Include Arduino I2C library
 
 #define CTRL1       0x20  // Register addresses from sensor datasheet.
 #define OUT_X_L     0x28  // Only the registers that are used
@@ -22,15 +22,15 @@
 
 int8_t readData   = 0x01;
 int8_t writeData  = 0x00;
-int8_t address    = 0xD6;  //address of L3GD20H with SDO/ADR/SA0 pulled HIGH.
-//int8_t address  = 0xD4;  //address of L3GD20H with SDO/ADR/SA0 connected to GND.
+int8_t address    = 0xD6; // Device address of L3GD20H with SDO/ADR/SA0 pulled HIGH.
+//int8_t address  = 0xD4; // Device address of L3GD20H with SDO/ADR/SA0 connected to GND.
 
-int16_t gx, gy, gz;   //16-bit variables to hold raw data from sensor
+int16_t gx, gy, gz;       // 16-bit variables to hold raw data from sensor
 
 void setup() {
   Serial.begin(9600);
   Wire.begin();
-  writeReg(CTRL1, 0x0F); // Initialize the sensor by setting control register
+  writeReg(CTRL1, 0x0F);  // Initialize the sensor by setting control register
   delay(100);
 }
 

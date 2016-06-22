@@ -12,7 +12,7 @@
  * Sensor CS - Arduino Uno Digital Pin 10 or SS (Slave Select or Chip Select)
  */
 
-#include <SPI.h> // Include Arduino SPI library
+#include <SPI.h>          // Include Arduino SPI library
 
 #define CTRL1       0x20  // Register addresses from sensor datasheet.
 #define OUT_X_L     0x28  // Only the registers that are used
@@ -25,15 +25,15 @@
 int8_t readData   = 0x80;
 int8_t writeData  = 0x00;
 
-int16_t gx, gy, gz;   //16-bit variables to hold raw data from sensor
+int16_t gx, gy, gz;       // 16-bit variables to hold raw data from sensor
 
-const int CS = 10;    // Chip Select pin for SPI
+const int CS = 10;        // Chip Select pin for SPI
 
 void setup() {
   Serial.begin(9600);
   SPI.begin();
   pinMode(CS, OUTPUT);
-  writeReg(CTRL1, 0x0F); // Initialize the sensor by setting control register
+  writeReg(CTRL1, 0x0F);  // Initialize the sensor by setting control register
   delay(100);
 }
 
